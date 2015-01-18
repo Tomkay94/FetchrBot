@@ -1,8 +1,8 @@
 const
     twilio     = require('twilio')
   , Hapi       = require('hapi')
-  , accountSid = 'YOUR_ACCOUNT_SID'
-  , authToken  = 'YOUR_AUTH_TOKEN_HERE'
+  , accountSid = 'ACC_SID'
+  , authToken  = 'AUTH_TOKEN'
   , client     = new twilio.RestClient(accountSid, authToken);
 
 // Configure the Hapi server
@@ -28,6 +28,19 @@ server.route([
     method: 'GET',
     path: '/{dataStructure}',
     handler: function(request, reply) {
+      /* Text the request user */
+      client.messages.create({
+        to:'INCOMING_NUMBER',
+        from:'OUTGOING_NUMBER',
+        body: 'Requested: ' + encodeURIComponent(request.params.dataStructure)
+      }, function(error, message) {
+        if (error) {
+          console.log(error.message);
+        }
+        else {
+          console.log('Message successfully sent!');
+        }
+      });
       reply('Requested: ' + encodeURIComponent(request.params.dataStructure));
     }
   }
@@ -36,17 +49,3 @@ server.route([
 server.start(function() {
   console.log("The magic happens on port " + server.info.port);
 });
-
-/* Twilio API SMS Send Test*/
-// client.messages.create({
-//   to:'SOME_NUMBER',
-//   from:'TWILIO_NUMBER',
-//   body:'Hey there!'
-// }, function(error, message) {
-//   if (error) {
-//     console.log(error.message);
-//   }
-//   else {
-//     console.log("Message sent!");
-//   }
-// });
