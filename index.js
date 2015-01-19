@@ -1,9 +1,8 @@
 const
-    twilio     = require('twilio')
-  , Hapi       = require('hapi')
+    Hapi       = require('hapi')
   , accountSid = 'ACC_SID'
   , authToken  = 'AUTH_TOKEN'
-  , client     = new twilio.RestClient(accountSid, authToken);
+  , client     = require('twilio')(accountSid, authToken);
 
 // Configure the Hapi server
 var server = new Hapi.Server();
@@ -19,29 +18,19 @@ server.route([
   },
   {
     method: 'GET',
-    path: '/help',
+    path: '/twilioCall',
     handler: function(request, reply) {
-      reply('help');
-    }
-  },
-  {
-    method: 'GET',
-    path: '/{dataStructure}',
-    handler: function(request, reply) {
-      /* Text the request user */
+
       client.messages.create({
-        to:'INCOMING_NUMBER',
-        from:'OUTGOING_NUMBER',
-        body: 'Requested: ' + encodeURIComponent(request.params.dataStructure)
+        to:'USER_NUMBER',
+        from:'TWILIO_NUMBER',
+        body: 'some static message'
       }, function(error, message) {
         if (error) {
           console.log(error.message);
         }
-        else {
-          console.log('Message successfully sent!');
-        }
       });
-      reply('Requested: ' + encodeURIComponent(request.params.dataStructure));
+      reply('twilioCall executed');
     }
   }
 ]);
