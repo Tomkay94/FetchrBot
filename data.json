@@ -1,31 +1,50 @@
-exports.data = {
+{
+  "help" : {
+    
+  },
   "learn" : {
     "array" : {
-
+      "methods": [
+        "append(newItem)",
+        "remove(item)",
+        "index(index)",
+        "makeArray(size)"
+      ]
     },
-    "dynamic array" : {
-
+    "stack" : {
+      "methods" : [
+        "push(newItem)",
+        "pop()",
+        "isEmpty()",
+        "isFull()"
+      ]
     },
     "graph" : {
-
+      "methods" : []
+    },
+    "queue" : {
+      "methods" : []
+    },
+    "dynamic array" : {
+      "methods" : []
     },
     "hash table" : {
-
+      "methods" : []
     },
     "linked list" : {
-
+      "methods" : []
     },
     "heap" : {
-
+      "methods" : []
     },
     "binary tree" : {
-
+      "methods" : []
     },
     "AVL tree" : {
-
+      "methods" : []
     },
     "red black tree" : {
-
+      "methods" : []
     }
   }
 }
