@@ -1,7 +1,7 @@
 {
-  "name": "dslearner",
+  "name": "fetchrBot",
   "version": "1.0.0",
-  "description": "App that lets users text keywords and learn about data structures without internet access!",
+  "description": "A service that lets users retrieve information without internet access.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
