@@ -28,11 +28,42 @@
         "isFull()"
       ]
     },
-    "graph" : {
-      "methods" : []
-    },
     "queue" : {
-      "methods" : []
+      "methods" : [
+        "push(newItem)",
+        "pop()",
+        "isEmpty()",
+        "isFull()"
+      ]
+    },
+    "linked list" : {
+      "methods" : [
+        "search(item)",
+        "insert(item)",
+        "delete(item)"
+      ]
+    },
+    "heap" : {
+      "methods" : [
+        "search(item)",
+        "insert(item)",
+        "delete(item)"
+      ]
+    },
+    "binary tree" : {
+      "methods" : [
+        "search(item)",
+        "insert(item)",
+        "delete(item)"
+      ]
+    },
+    "AVL tree" : {
+      "methods" : [
+        "search(item)",
+        "insert(item)",
+        "delete(item)",
+        "rebalance()"
+      ]
     },
     "dynamic array" : {
       "methods" : []
@@ -40,19 +71,7 @@
     "hash table" : {
       "methods" : []
     },
-    "linked list" : {
-      "methods" : []
-    },
-    "heap" : {
-      "methods" : []
-    },
-    "binary tree" : {
-      "methods" : []
-    },
-    "AVL tree" : {
-      "methods" : []
-    },
-    "red black tree" : {
+    "graph" : {
       "methods" : []
     }
   }
