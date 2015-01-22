@@ -3,7 +3,6 @@ const
   , authToken  = 'AUTH_TOKEN'
   , Hapi        = require('hapi')
   , querystring = require('querystring')
-  , data        = require('./data.json')
   , helper      = require('./helper.js')
   , client      = require('twilio')(accountSid, authToken);
 
