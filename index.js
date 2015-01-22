@@ -3,8 +3,8 @@ const
   , authToken  = 'AUTH_TOKEN'
   , Hapi        = require('hapi')
   , querystring = require('querystring')
-  , client      = require('twilio')(accountSid, authToken)
-  , data        = require('./data.json');
+  , data        = require('./data.json')
+  , client      = require('twilio')(accountSid, authToken);
 
 /* Configure the Hapi server */
 var server = new Hapi.Server();
