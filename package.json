@@ -9,9 +9,11 @@
   "author": "Thanasi Karachotzitis",
   "license": "MIT",
   "dependencies": {
-    "hapi": "^8.1.0"
+    "handlebars": "^2.0.0",
+    "hapi": "^8.1.0",
+    "twilio": "^1.10.0"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "nodemon": "^1.2.1"
   }
 }
