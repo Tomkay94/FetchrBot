@@ -9,7 +9,7 @@
   "author": "Thanasi Karachotzitis",
   "license": "MIT",
   "dependencies": {
-    "hapi": "^8.1.0",
+    "hapi": "^8.1.0"
   },
   "devDependencies" : {
     "nodemon": "^1.2.1"

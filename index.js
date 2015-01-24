@@ -2,20 +2,40 @@ const
     accountSid = 'ACC_SID'
   , authToken  = 'AUTH_TOKEN'
   , Hapi        = require('hapi')
+  , Path        = require('path')
   , querystring = require('querystring')
-  , helper      = require('./helper.js')
-  , client      = require('twilio')(accountSid, authToken);
+  , client      = require('twilio')(accountSid, authToken)
+  , helper      = require('./helper.js');
 
 /* Configure the Hapi server */
 var server = new Hapi.Server();
 server.connection({ port: 3000 });
 
+server.views({
+  engines: {
+    html: require('handlebars')
+  },
+  path: Path.join(__dirname, 'templates')
+});
+
 server.route([
+{ // Serve static assets
+    path: "/public/{path*}",
+    method: "GET",
+    handler: {
+      directory: {
+        path: "./public",
+        listing: false,
+        index: false
+      }
+    }
+  },
   {
     method: 'GET',
     path: '/',
     handler: function(request, reply) {
-      reply('home');
+      reply.view('index', {
+        title: 'FetchrBot | Home'});
     }
   },
   {

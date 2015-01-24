@@ -28,11 +28,11 @@ exports.parseRequestBody = function(request, callback) {
       case 'random':
         var lowerBound = twilioBody[1]
           , upperBound = twilioBody[2];
+          //resultData = lowerBound <-- random --> upperBound
         break;
 
       case 'coinflip':
-        // var resultData = Math.random(), 1 or 2
-        // nothing, return H or T randomly with P(H,T) = 0.5
+        //resultData = Heads <-- random --> Tails
         break;
 
       case 'help':
