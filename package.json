@@ -1,10 +1,14 @@
 {
   "name": "fetchrBot",
   "version": "1.0.0",
-  "description": "A service that lets users retrieve information without internet access.",
+  "description": "A service that lets users retrieve information without the need for internet access.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository" : {
+    "type": "git",
+    "url": "https://github.com/Tomkay94/fetchr-bot"
   },
   "author": "Thanasi Karachotzitis",
   "license": "MIT",
