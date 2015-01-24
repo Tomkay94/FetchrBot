@@ -19,9 +19,9 @@ server.views({
 });
 
 server.route([
-  { // Serve static assets
-    path: "/public/{path*}",
-    method: "GET",
+  {
+    path: '/public/{path*}',
+    method: 'GET',
     handler: {
       directory: {
         path: "./public",
