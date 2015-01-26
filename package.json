@@ -4,9 +4,10 @@
   "description": "A service that lets users retrieve information without the need for internet access.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodeunit test/*",
+    "start": "nodemon index.js"
   },
-  "repository" : {
+  "repository": {
     "type": "git",
     "url": "https://github.com/Tomkay94/fetchr-bot"
   },
@@ -18,6 +19,7 @@
     "twilio": "^1.10.0"
   },
   "devDependencies": {
+    "nodeunit": "^0.9.0",
     "nodemon": "^1.2.1"
   }
 }
