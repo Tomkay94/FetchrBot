@@ -1,7 +1,6 @@
 const
     Hapi        = require('hapi')
   , Path        = require('path')
-  , querystring = require('querystring')
   , helper      = require('./helper.js')
   , config      = require('./config.js');
 

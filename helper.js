@@ -25,7 +25,6 @@ exports.fromTwilio = function(request) {
   return twilio.validateRequest(config.twilio.authToken, sig, url, body);
 };
 
-
 /* Returns the parsed request body and data for the determined phrase */
 exports.parseRequestBody = function(request, callback) {
     /* Clean and parse the request body */
@@ -45,7 +44,6 @@ exports.parseRequestBody = function(request, callback) {
         break;
 
       case 'how':
-        // 'to make a fire'
         var askedData  = twilioBody.slice(1, twilioBody.length)
           , resultData = data[keyword][askedData];
         break;
