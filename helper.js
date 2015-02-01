@@ -1,5 +1,16 @@
 const
-  data = require('./data.json');
+    data   = require('./data.json')
+  , config = require('./config.js')
+  , twilio = require('twilio');
+
+/* Determines if the request is from Twilio */
+exports.fromTwilio = function(request) {
+  var sig  = request.headers['x-twilio-signature']
+  , url  = config.twilio.messagingUrl + request.url.search
+  , body = request.payload || {};
+
+  return twilio.validateRequest(config.twilio.authToken, sig, url, body);
+};
 
 /* Returns the parsed request body and data for the determined phrase */
 exports.parseRequestBody = function(request, callback) {
