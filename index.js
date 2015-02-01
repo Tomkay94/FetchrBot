@@ -1,10 +1,7 @@
 const
-    accountSid = 'ACC_SID'
-  , authToken  = 'AUTH_TOKEN'
-  , Hapi        = require('hapi')
+    Hapi        = require('hapi')
   , Path        = require('path')
   , querystring = require('querystring')
-  , client      = require('twilio')(accountSid, authToken)
   , helper      = require('./helper.js')
   , config      = require('./config.js');
 
@@ -43,28 +40,18 @@ server.route([
     method: 'GET',
     path: '/twilioCall',
     handler: function(request, reply) {
+      /* Check if the request is from Twilio */
       if(helper.fromTwilio(request) || config.twilio.disableSigCheck) {
         helper.parseRequestBody(request, function(err, parsedData) {
-
           if (!err) {
-            /* Text the client */
-            client.messages.create({
-              to: request.query.From,
-              from: request.query.To,
-              body: parsedData
-            }, function(error, message) {
-              if (error) {
-                console.log(error.message);
-              }
-            });
-          }
-
-      });
+            helper.sendTextToClient(request, parsedData);
+          };
+        });
       }
-      // Not a valid Twilio request
+      /* Not a valid Twilio request */
       else {
         reply(Hapi.error.unauthorized('Not a valid Twilio request'));
-      }
+      };
     }
   }
 ]);

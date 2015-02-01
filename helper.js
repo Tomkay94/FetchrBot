@@ -1,7 +1,21 @@
 const
     data   = require('./data.json')
   , config = require('./config.js')
-  , twilio = require('twilio');
+  , twilio = require('twilio')
+  , client = twilio(config.accountSid, config.authToken);
+
+/* Text the client back the parsed data */
+exports.sendTextToClient = function(request, parsedData) {
+  client.messages.create({
+    to: request.query.From,
+    from: request.query.To,
+    body: parsedData
+  }, function(error, message) {
+    if (error) {
+      console.log(error.message);
+    }
+  });
+};
 
 /* Determines if the request is from Twilio */
 exports.fromTwilio = function(request) {
