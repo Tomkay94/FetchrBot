@@ -50,7 +50,7 @@ server.route([
       // }
       /* Not a valid Twilio request */
       // else {
-      //  reply(Hapi.error.unauthorized('Not a valid Twilio request'));
+      //  reply(Hapi.boom.unauthorized('Not a valid Twilio request'));
       // };
     }
   }
