@@ -20,16 +20,17 @@ exports.sendTextToClient = function(request, parsedData) {
 /* Determines if the request is from Twilio */
 exports.fromTwilio = function(request) {
   var sig  = request.headers['x-twilio-signature']
-  , url  = config.twilio.messagingUrl + request.url.search
-  , body = request.payload || {};
+    , url  = config.twilio.messagingUrl + request.url.search
+    , body = request.payload || {};
 
   return twilio.validateRequest(config.twilio.authToken, sig, url, body);
 };
 
+
 /* Returns the parsed request body and data for the determined phrase */
 exports.parseRequestBody = function(request, callback) {
     /* Clean and parse the request body */
-    var twilioBody  = request.query.Body.split(' ');
+    var twilioBody  = request.query.Body.trim().split(' ');
     twilioBody      = twilioBody.map(function(element) {
       return element.toLowerCase().trim();
     });
@@ -39,8 +40,8 @@ exports.parseRequestBody = function(request, callback) {
     switch (keyword) {
       case 'learn':
         /* Get the requested term, which is after keyword and before last word */
-        var content    = twilioBody.slice(1, twilioBody.length - 2).join(' ')
-          , method     = twilioBody[twilioBody.length - 2]
+        var content    = twilioBody.slice(1, twilioBody.length - 1).join(' ')
+          , method     = twilioBody[twilioBody.length - 1]
           , resultData = data[keyword][content][method].join('\n');
         break;
 
