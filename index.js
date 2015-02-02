@@ -42,7 +42,7 @@ server.route([
       /* Send the client the data being requested */
       helper.parseRequestBody(request, function(err, parsedData) {
         if (!err) {
-          helper.sendTextToClient(request, parsedData);
+          helper.sendSMSToClient(request, parsedData);
         };
       });
     }

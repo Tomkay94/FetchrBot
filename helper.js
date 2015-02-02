@@ -5,7 +5,7 @@ const
   , client = twilio(config.twilio.accountSid, config.twilio.authToken);
 
 /* Text the client back the parsed data */
-exports.sendTextToClient = function(request, parsedData) {
+exports.sendSMSToClient = function(request, parsedData) {
   client.messages.create({
     to: request.query.From,
     from: request.query.To,
