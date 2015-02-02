@@ -39,18 +39,12 @@ server.route([
     method: 'GET',
     path: '/twilioCall',
     handler: function(request, reply) {
-      /* Check if the request is from Twilio */
-      // if(helper.fromTwilio(request) || config.twilio.disableSigCheck) {
-        helper.parseRequestBody(request, function(err, parsedData) {
-          if (!err) {
-            helper.sendTextToClient(request, parsedData);
-          };
-        });
-      // }
-      /* Not a valid Twilio request */
-      // else {
-      //  reply(Hapi.boom.unauthorized('Not a valid Twilio request'));
-      // };
+      /* Send the client the data being requested */
+      helper.parseRequestBody(request, function(err, parsedData) {
+        if (!err) {
+          helper.sendTextToClient(request, parsedData);
+        };
+      });
     }
   }
 ]);
