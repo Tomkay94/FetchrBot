@@ -29,7 +29,7 @@ exports.fromTwilio = function(request) {
 
 
 /* Fetches most recent recommended movies */
-exports.getRecommendedMovies = function(callback) {
+getRecommendedMovies = function(callback) {
 
   moviesURL = 'http://www.rottentomatoes.com/';
 
@@ -52,6 +52,9 @@ exports.getRecommendedMovies = function(callback) {
   });
 };
 
+function flipCoin() {
+  return (Math.floor(Math.random() * 2) == 0 ? 'heads' : 'tails');
+};
 
 /* Returns the parsed request body and data for the determined phrase */
 exports.parseRequestBody = function(request, callback) {
@@ -89,7 +92,7 @@ exports.parseRequestBody = function(request, callback) {
           };
         }
       case 'coinflip':
-        //resultData = Heads <-- random --> Tails
+        resultData = flipCoin();
         break;
 
       case 'help':
