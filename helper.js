@@ -2,6 +2,8 @@ const
     data   = require('./data.json')
   , config = require('./config.js')
   , twilio = require('twilio')
+  , request = require('request')
+  , cheerio = require('cheerio')
   , client = twilio(config.twilio.accountSid, config.twilio.authToken);
 
 /* Text the client back the parsed data */
@@ -15,7 +17,6 @@ exports.sendSMSToClient = function(request, parsedData) {
       console.log(error.message);
     }
   });
-
 };
 
 
@@ -27,34 +28,6 @@ exports.fromTwilio = function(request) {
   return twilio.validateRequest(config.twilio.authToken, sig, url, body);
 };
 
-
-/* Fetches most recent recommended movies */
-getRecommendedMovies = function(callback) {
-
-  moviesURL = 'http://www.rottentomatoes.com/';
-
-  request(moviesURL, function(error, response, body) {
-
-    if(!error && response.statusCode === 200) {
-      var $      = cheerio.load(body)
-        , movies = [];
-
-      $('tr td.middle_col', '#homepage-top-box-office').each(function(movie) {
-        var movieTitle = $(this).text();
-        if(movieTitle.length > 0) {
-          // Get just the movie title
-          movies.push(movieTitle.replace(/(\r\n|\n|\r)/gm,"").trim());
-        };
-      });
-
-    };
-    callback(movies);
-  });
-};
-
-function flipCoin() {
-  return (Math.floor(Math.random() * 2) == 0 ? 'heads' : 'tails');
-};
 
 /* Returns the parsed request body and data for the determined phrase */
 exports.parseRequestBody = function(request, callback) {
@@ -79,20 +52,15 @@ exports.parseRequestBody = function(request, callback) {
           , resultData = data[keyword][askedData];
         break;
 
-      case 'random':
-        var lowerBound = twilioBody[1]
-          , upperBound = twilioBody[2];
-          //resultData = lowerBound <-- random --> upperBound
-        break;
       case 'recommend':
         // 'recommend a movie'
         if(twilioBody.indexOf('movie') > -1) {
-          getRecommendedMovies(movies) {
-            resultData = movies.join('\n');
-          };
+          var resultData = getRecommendedMovies();
         }
+        break;
+
       case 'coinflip':
-        resultData = flipCoin();
+        var resultData = flipCoin();
         break;
 
       case 'help':
@@ -100,8 +68,41 @@ exports.parseRequestBody = function(request, callback) {
         break;
 
       default:
-        resultData = "There was a problem :( text help for instructions on using FetchrBot.";
+        var resultData = "There was a problem :( text help for instructions on using FetchrBot.";
         break;
     }
     callback(null, resultData);
+};
+
+/************************
+Private Helper Functions
+*************************/
+
+/* Fetches most recent recommended movies */
+function getRecommendedMovies() {
+
+  moviesURL = 'http://www.rottentomatoes.com/';
+
+  request(moviesURL, function(error, response, body) {
+
+    if(!error && response.statusCode === 200) {
+      var $      = cheerio.load(body)
+        , movies = [];
+
+      $('tr td.middle_col', '#homepage-top-box-office').each(function(movie) {
+        var movieTitle = $(this).text();
+        if(movieTitle.length > 0) {
+          // Get just the movie title
+          movies.push(movieTitle.replace(/(\r\n|\n|\r)/gm,"").trim());
+        };
+      });
+    };
+    return (movies);
+  });
+};
+
+
+/* Simulates a coin flip */
+function flipCoin() {
+  return (Math.floor(Math.random() * 2) == 0 ? 'heads' : 'tails');
 };
