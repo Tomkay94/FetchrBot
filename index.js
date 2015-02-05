@@ -2,7 +2,7 @@ const
     Hapi        = require('hapi')
   , Path        = require('path')
   , helper      = require('./helper.js');
-  
+
 /* Configure the Hapi server */
 var server = new Hapi.Server();
 server.connection({ port: 3000 });

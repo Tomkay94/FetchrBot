@@ -25,6 +25,30 @@ exports.fromTwilio = function(request) {
   return twilio.validateRequest(config.twilio.authToken, sig, url, body);
 };
 
+/* Fetches most recent recommended movies */
+exports.getRecommendedMovies = function(callback) {
+
+  moviesURL = 'http://www.rottentomatoes.com/';
+
+  request(moviesURL, function(error, response, body) {
+
+    if(!error && response.statusCode === 200) {
+      var $      = cheerio.load(body)
+        , movies = [];
+
+      $('tr td.middle_col', '#homepage-top-box-office').each(function(movie) {
+        var movieTitle = $(this).text();
+        if(movieTitle.length > 0) {
+          // Get just the movie title
+          movies.push(movieTitle.replace(/(\r\n|\n|\r)/gm,"").trim());
+        };
+      });
+
+    };
+    callback(movies);
+  });
+};
+
 /* Returns the parsed request body and data for the determined phrase */
 exports.parseRequestBody = function(request, callback) {
     /* Clean and parse the request body */
