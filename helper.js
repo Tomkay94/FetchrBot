@@ -15,7 +15,9 @@ exports.sendSMSToClient = function(request, parsedData) {
       console.log(error.message);
     }
   });
+
 };
+
 
 /* Determines if the request is from Twilio */
 exports.fromTwilio = function(request) {
@@ -24,6 +26,7 @@ exports.fromTwilio = function(request) {
     , body = request.payload || {};
   return twilio.validateRequest(config.twilio.authToken, sig, url, body);
 };
+
 
 /* Fetches most recent recommended movies */
 exports.getRecommendedMovies = function(callback) {
@@ -48,6 +51,7 @@ exports.getRecommendedMovies = function(callback) {
     callback(movies);
   });
 };
+
 
 /* Returns the parsed request body and data for the determined phrase */
 exports.parseRequestBody = function(request, callback) {
@@ -77,7 +81,13 @@ exports.parseRequestBody = function(request, callback) {
           , upperBound = twilioBody[2];
           //resultData = lowerBound <-- random --> upperBound
         break;
-
+      case 'recommend':
+        // 'recommend a movie'
+        if(twilioBody.indexOf('movie') > -1) {
+          getRecommendedMovies(movies) {
+            resultData = movies.join('\n');
+          };
+        }
       case 'coinflip':
         //resultData = Heads <-- random --> Tails
         break;
